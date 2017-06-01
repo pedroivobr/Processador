@@ -1,0 +1,27 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+--USE ieee.std_logic_arith.all;
+--USE ieee.std_logic_unsigned.all;
+use IEEE.numeric_std.all;
+
+ENTITY DisplayOp IS
+  PORT (entrada : IN STD_LOGIC_VECTOR(3 DOWNTO 0);        
+        saida1, saida2, saida3, saida4 : OUT STD_LOGIC_VECTOR(6 DOWNTO 0)); 
+END DisplayOp;
+
+ARCHITECTURE behav OF DisplayOp IS
+	signal y : unsigned std_logic_vector(3 downto 0);
+BEGIN
+	
+  PROCESS(entrada)	
+	BEGIN	
+		CASE y IS
+			WHEN "0000" =>
+				saida4 <= "1100001";
+				saida3 <= "1000001";
+				saida2 <= "1001000";
+				saida1 <= "0001100";
+				
+		END CASE;						
+	END PROCESS;
+END behav; 

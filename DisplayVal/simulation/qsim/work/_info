@@ -1,0 +1,85 @@
+m255
+K3
+13
+cModel Technology
+Z0 dF:\CD - Labs\Processador\Display\simulation\qsim
+vDisplayVal
+Z1 !s100 WSe[me0>]d44E1eBVKcB_2
+Z2 IJRQCo?V_=Tk8YZP@D2j]S2
+Z3 VKCZV]8C4?O@fAXSE4<URZ0
+Z4 dF:\CD - Labs\Processador\DisplayVal\simulation\qsim
+Z5 w1496338432
+Z6 8Display.vo
+Z7 FDisplay.vo
+L0 31
+Z8 OV;L;10.1d;51
+r1
+31
+Z9 !s90 -work|work|Display.vo|
+Z10 o-work work -O0
+Z11 n@display@val
+!i10b 1
+!s85 0
+Z12 !s108 1496339598.751000
+Z13 !s107 Display.vo|
+!s101 -O0
+vDisplayVal_vlg_check_tst
+!i10b 1
+!s100 b8mLY`m=i:fOIia]ef1N81
+IkaUGJiPZn<AFecm2K@8gl3
+Z14 V[4gBf[26Y<C0cZgDh=^I63
+R4
+Z15 w1496339594
+Z16 8DisplayVal.vt
+Z17 FDisplayVal.vt
+L0 57
+R8
+r1
+!s85 0
+31
+Z18 !s108 1496339605.264000
+Z19 !s107 DisplayVal.vt|
+Z20 !s90 -work|work|DisplayVal.vt|
+!s101 -O0
+R10
+Z21 n@display@val_vlg_check_tst
+vDisplayVal_vlg_sample_tst
+!i10b 1
+!s100 Ln;50m`CQVV42@JDOT<iP1
+IF[1hIi;zUUmfOL?[?=F<23
+Z22 V`3kD;i=KDD]l=eRcoJ24^0
+R4
+R15
+R16
+R17
+L0 29
+R8
+r1
+!s85 0
+31
+R18
+R19
+R20
+!s101 -O0
+R10
+Z23 n@display@val_vlg_sample_tst
+vDisplayVal_vlg_vec_tst
+!i10b 1
+!s100 Dd@@g4357zW[R65;^RPCX2
+Ig]aeZF9^AV^a;Ha5``Ae;2
+Z24 V=heC;5X5oZ[HmS:odE2d90
+R4
+R15
+R16
+R17
+Z25 L0 661
+R8
+r1
+!s85 0
+31
+R18
+R19
+R20
+!s101 -O0
+R10
+Z26 n@display@val_vlg_vec_tst
