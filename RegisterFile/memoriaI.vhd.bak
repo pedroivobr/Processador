@@ -1,0 +1,17 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity memoriaI is
+	addr : in std_logic_vector(7 downto 0);
+	rd : in std_logic;
+	data : out std_logic_vector(15 downto 0)
+end memoriaI;
+
+architecture mecanismo of memoriaI is
+	signal inst : std_logic_vector(4095 downto 0);
+	
+begin
+	data <= inst(16*(to_integer(unsigned(w_addr1)) + 1) - 1 downto 16*to_integer(unsigned(w_addr)))
+		when rd = '1';
+end mecanismo;

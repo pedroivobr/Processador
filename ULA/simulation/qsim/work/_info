@@ -1,0 +1,85 @@
+m255
+K3
+13
+cModel Technology
+Z0 dF:\CD - Labs\Processador\ULA\simulation\qsim
+vprocULA
+Z1 !s100 QkZ7m41cW2[lRRb=BYF@W0
+Z2 I8HMP[BWIf_:1d>CeTfYg;1
+Z3 V?SCNSGIY_H_QWz:nLKCb_3
+Z4 dF:\CD - Labs\Processador\ULA\simulation\qsim
+Z5 w1495475170
+Z6 8procULA.vo
+Z7 FprocULA.vo
+L0 31
+Z8 OV;L;10.1d;51
+r1
+31
+Z9 !s90 -work|work|procULA.vo|
+Z10 o-work work -O0
+Z11 nproc@u@l@a
+!i10b 1
+!s85 0
+Z12 !s108 1495475177.827000
+Z13 !s107 procULA.vo|
+!s101 -O0
+vprocULA_vlg_check_tst
+!i10b 1
+Z14 !s100 79LYYabh4=85<J9jQ4PET1
+Z15 IHbi2?[PBSD7MEX]cQ_0K^0
+Z16 VC6SLRNzi7@l=e8F4@FIR?1
+R4
+Z17 w1495475168
+Z18 8procULA.vt
+Z19 FprocULA.vt
+L0 61
+R8
+r1
+!s85 0
+31
+Z20 !s108 1495475181.987000
+Z21 !s107 procULA.vt|
+Z22 !s90 -work|work|procULA.vt|
+!s101 -O0
+R10
+Z23 nproc@u@l@a_vlg_check_tst
+vprocULA_vlg_sample_tst
+!i10b 1
+Z24 !s100 XO59I=Qc_4AMEo9G=Za022
+Z25 IHf8M4zH_JLRhhVY9im^WF1
+Z26 V0M3@h_E``VPYW<>o9]mc83
+R4
+R17
+R18
+R19
+L0 29
+R8
+r1
+!s85 0
+31
+R20
+R21
+R22
+!s101 -O0
+R10
+Z27 nproc@u@l@a_vlg_sample_tst
+vprocULA_vlg_vec_tst
+!i10b 1
+!s100 lINNQ^;KiNRC`neX0@Mbj3
+IzmjcP;AdibdeKISg7A>OR3
+Z28 Vc=I6M`UAfZDlJhY6Lk42>3
+R4
+R17
+R18
+R19
+Z29 L0 425
+R8
+r1
+!s85 0
+31
+R20
+R21
+R22
+!s101 -O0
+R10
+Z30 nproc@u@l@a_vlg_vec_tst
