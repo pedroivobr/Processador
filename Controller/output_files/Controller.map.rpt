@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Controller
-Fri Jun 02 06:22:34 2017
+Fri Jun 02 06:40:18 2017
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
 
 
@@ -44,13 +44,13 @@ applicable agreement for further details.
 +--------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                         ;
 +------------------------------------+-------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Jun 02 06:22:31 2017           ;
+; Analysis & Synthesis Status        ; Successful - Fri Jun 02 06:40:16 2017           ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Web Edition ;
 ; Revision Name                      ; Controller                                      ;
 ; Top-level Entity Name              ; Controller                                      ;
 ; Family                             ; Cyclone II                                      ;
-; Total logic elements               ; 45                                              ;
-;     Total combinational functions  ; 41                                              ;
+; Total logic elements               ; 58                                              ;
+;     Total combinational functions  ; 54                                              ;
 ;     Dedicated logic registers      ; 9                                               ;
 ; Total registers                    ; 9                                               ;
 ; Total pins                         ; 69                                              ;
@@ -171,16 +171,16 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+-------+
 ; Resource                                    ; Usage ;
 +---------------------------------------------+-------+
-; Estimated Total logic elements              ; 45    ;
+; Estimated Total logic elements              ; 58    ;
 ;                                             ;       ;
-; Total combinational functions               ; 41    ;
+; Total combinational functions               ; 54    ;
 ; Logic element usage by number of LUT inputs ;       ;
-;     -- 4 input functions                    ; 22    ;
-;     -- 3 input functions                    ; 12    ;
-;     -- <=2 input functions                  ; 7     ;
+;     -- 4 input functions                    ; 20    ;
+;     -- 3 input functions                    ; 29    ;
+;     -- <=2 input functions                  ; 5     ;
 ;                                             ;       ;
 ; Logic elements by mode                      ;       ;
-;     -- normal mode                          ; 41    ;
+;     -- normal mode                          ; 54    ;
 ;     -- arithmetic mode                      ; 0     ;
 ;                                             ;       ;
 ; Total registers                             ; 9     ;
@@ -190,9 +190,9 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ; I/O pins                                    ; 69    ;
 ; Embedded Multiplier 9-bit elements          ; 0     ;
 ; Maximum fan-out node                        ; y[4]  ;
-; Maximum fan-out                             ; 20    ;
-; Total fan-out                               ; 167   ;
-; Average fan-out                             ; 1.40  ;
+; Maximum fan-out                             ; 24    ;
+; Total fan-out                               ; 218   ;
+; Average fan-out                             ; 1.65  ;
 +---------------------------------------------+-------+
 
 
@@ -201,22 +201,34 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
 ; Compilation Hierarchy Node ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name ; Library Name ;
 +----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
-; |Controller                ; 41 (41)           ; 9 (9)        ; 0           ; 0            ; 0       ; 0         ; 69   ; 0            ; |Controller         ; work         ;
+; |Controller                ; 54 (54)           ; 9 (9)        ; 0           ; 0            ; 0       ; 0         ; 69   ; 0            ; |Controller         ; work         ;
 +----------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+---------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
-+---------------------------------------------------------------------------------------------------+
-; User-Specified and Inferred Latches                                                               ;
-+----------------------------------------------------+---------------------+------------------------+
-; Latch Name                                         ; Latch Enable Signal ; Free of Timing Hazards ;
-+----------------------------------------------------+---------------------+------------------------+
-; disp1_out[0]$latch                                 ; GND                 ; yes                    ;
-; disp1_out[1]$latch                                 ; GND                 ; yes                    ;
-; disp1_out[2]$latch                                 ; GND                 ; yes                    ;
-; disp1_out[3]$latch                                 ; GND                 ; yes                    ;
-; Number of user-specified and inferred latches = 4  ;                     ;                        ;
-+----------------------------------------------------+---------------------+------------------------+
++----------------------------------------------------------------------------------------------------+
+; User-Specified and Inferred Latches                                                                ;
++-----------------------------------------------------+---------------------+------------------------+
+; Latch Name                                          ; Latch Enable Signal ; Free of Timing Hazards ;
++-----------------------------------------------------+---------------------+------------------------+
+; RF_W_addr[0]$latch                                  ; Equal17             ; yes                    ;
+; RF_W_addr[1]$latch                                  ; Equal17             ; yes                    ;
+; RF_W_addr[2]$latch                                  ; Equal17             ; yes                    ;
+; RF_W_addr[3]$latch                                  ; Equal17             ; yes                    ;
+; disp1_out[0]$latch                                  ; GND                 ; yes                    ;
+; disp1_out[1]$latch                                  ; GND                 ; yes                    ;
+; disp1_out[2]$latch                                  ; GND                 ; yes                    ;
+; disp1_out[3]$latch                                  ; GND                 ; yes                    ;
+; D_addr[0]$latch                                     ; Equal17             ; yes                    ;
+; D_addr[1]$latch                                     ; Equal17             ; yes                    ;
+; D_addr[2]$latch                                     ; Equal17             ; yes                    ;
+; D_addr[3]$latch                                     ; Equal17             ; yes                    ;
+; D_addr[4]$latch                                     ; Equal17             ; yes                    ;
+; D_addr[5]$latch                                     ; Equal17             ; yes                    ;
+; D_addr[6]$latch                                     ; Equal17             ; yes                    ;
+; D_addr[7]$latch                                     ; Equal17             ; yes                    ;
+; Number of user-specified and inferred latches = 16  ;                     ;                        ;
++-----------------------------------------------------+---------------------+------------------------+
 Note: All latches listed above may not be present at the end of synthesis due to various synthesis optimizations.
 
 
@@ -240,7 +252,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
-; y[4]                                   ; 20      ;
+; y[4]                                   ; 24      ;
 ; Total number of inverted registers = 1 ;         ;
 +----------------------------------------+---------+
 
@@ -269,7 +281,7 @@ Note: All latches listed above may not be present at the end of synthesis due to
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
-    Info: Processing started: Fri Jun 02 06:22:19 2017
+    Info: Processing started: Fri Jun 02 06:40:03 2017
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Controller -c Controller
 Warning (20028): Parallel compilation is not licensed and has been disabled
 Info (12021): Found 2 design units, including 1 entities, in source file controller.vhd
@@ -277,39 +289,46 @@ Info (12021): Found 2 design units, including 1 entities, in source file control
     Info (12023): Found entity 1: Controller
 Info (12127): Elaborating entity "Controller" for the top level hierarchy
 Warning (10541): VHDL Signal Declaration warning at Controller.vhd(11): used implicit default value for signal "selMUX_data" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10541): VHDL Signal Declaration warning at Controller.vhd(11): used implicit default value for signal "RF_W_wr" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10541): VHDL Signal Declaration warning at Controller.vhd(11): used implicit default value for signal "RF_rf_rd" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Warning (10541): VHDL Signal Declaration warning at Controller.vhd(11): used implicit default value for signal "RF_rq_rd" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10541): VHDL Signal Declaration warning at Controller.vhd(11): used implicit default value for signal "D_rd" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Warning (10541): VHDL Signal Declaration warning at Controller.vhd(11): used implicit default value for signal "D_wr" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Warning (10541): VHDL Signal Declaration warning at Controller.vhd(11): used implicit default value for signal "MI_rd" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Warning (10541): VHDL Signal Declaration warning at Controller.vhd(11): used implicit default value for signal "inc_PC" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10541): VHDL Signal Declaration warning at Controller.vhd(15): used implicit default value for signal "RF_sel" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10541): VHDL Signal Declaration warning at Controller.vhd(17): used implicit default value for signal "RF_W_addr" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Warning (10541): VHDL Signal Declaration warning at Controller.vhd(17): used implicit default value for signal "RF_rp_addr" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Warning (10541): VHDL Signal Declaration warning at Controller.vhd(17): used implicit default value for signal "RF_rq_addr" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Warning (10541): VHDL Signal Declaration warning at Controller.vhd(17): used implicit default value for signal "seletor" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Warning (10541): VHDL Signal Declaration warning at Controller.vhd(20): used implicit default value for signal "D_addr" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Warning (10541): VHDL Signal Declaration warning at Controller.vhd(20): used implicit default value for signal "RF_W_data" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
-Info (10041): Inferred latch for "disp1_out[0]" at Controller.vhd(197)
-Info (10041): Inferred latch for "disp1_out[1]" at Controller.vhd(197)
-Info (10041): Inferred latch for "disp1_out[2]" at Controller.vhd(197)
-Info (10041): Inferred latch for "disp1_out[3]" at Controller.vhd(197)
+Info (10041): Inferred latch for "RF_rp_rd" at Controller.vhd(221)
+Info (10041): Inferred latch for "RF_W_wr" at Controller.vhd(220)
+Info (10041): Inferred latch for "RF_W_addr[0]" at Controller.vhd(219)
+Info (10041): Inferred latch for "RF_W_addr[1]" at Controller.vhd(219)
+Info (10041): Inferred latch for "RF_W_addr[2]" at Controller.vhd(219)
+Info (10041): Inferred latch for "RF_W_addr[3]" at Controller.vhd(219)
+Info (10041): Inferred latch for "RF_sel[0]" at Controller.vhd(218)
+Info (10041): Inferred latch for "RF_sel[1]" at Controller.vhd(218)
+Info (10041): Inferred latch for "D_rd" at Controller.vhd(217)
+Info (10041): Inferred latch for "D_addr[0]" at Controller.vhd(216)
+Info (10041): Inferred latch for "D_addr[1]" at Controller.vhd(216)
+Info (10041): Inferred latch for "D_addr[2]" at Controller.vhd(216)
+Info (10041): Inferred latch for "D_addr[3]" at Controller.vhd(216)
+Info (10041): Inferred latch for "D_addr[4]" at Controller.vhd(216)
+Info (10041): Inferred latch for "D_addr[5]" at Controller.vhd(216)
+Info (10041): Inferred latch for "D_addr[6]" at Controller.vhd(216)
+Info (10041): Inferred latch for "D_addr[7]" at Controller.vhd(216)
+Info (10041): Inferred latch for "disp1_out[0]" at Controller.vhd(199)
+Info (10041): Inferred latch for "disp1_out[1]" at Controller.vhd(199)
+Info (10041): Inferred latch for "disp1_out[2]" at Controller.vhd(199)
+Info (10041): Inferred latch for "disp1_out[3]" at Controller.vhd(199)
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "selMUX_data" is stuck at GND
-    Warning (13410): Pin "RF_W_wr" is stuck at GND
-    Warning (13410): Pin "RF_rf_rd" is stuck at GND
+    Warning (13410): Pin "RF_W_wr" is stuck at VCC
+    Warning (13410): Pin "RF_rp_rd" is stuck at VCC
     Warning (13410): Pin "RF_rq_rd" is stuck at GND
-    Warning (13410): Pin "D_rd" is stuck at GND
+    Warning (13410): Pin "D_rd" is stuck at VCC
     Warning (13410): Pin "D_wr" is stuck at GND
     Warning (13410): Pin "MI_rd" is stuck at GND
     Warning (13410): Pin "inc_PC" is stuck at GND
-    Warning (13410): Pin "RF_sel[0]" is stuck at GND
+    Warning (13410): Pin "RF_sel[0]" is stuck at VCC
     Warning (13410): Pin "RF_sel[1]" is stuck at GND
-    Warning (13410): Pin "RF_W_addr[0]" is stuck at GND
-    Warning (13410): Pin "RF_W_addr[1]" is stuck at GND
-    Warning (13410): Pin "RF_W_addr[2]" is stuck at GND
-    Warning (13410): Pin "RF_W_addr[3]" is stuck at GND
     Warning (13410): Pin "RF_rp_addr[0]" is stuck at GND
     Warning (13410): Pin "RF_rp_addr[1]" is stuck at GND
     Warning (13410): Pin "RF_rp_addr[2]" is stuck at GND
@@ -322,14 +341,6 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "seletor[1]" is stuck at GND
     Warning (13410): Pin "seletor[2]" is stuck at GND
     Warning (13410): Pin "seletor[3]" is stuck at GND
-    Warning (13410): Pin "D_addr[0]" is stuck at GND
-    Warning (13410): Pin "D_addr[1]" is stuck at GND
-    Warning (13410): Pin "D_addr[2]" is stuck at GND
-    Warning (13410): Pin "D_addr[3]" is stuck at GND
-    Warning (13410): Pin "D_addr[4]" is stuck at GND
-    Warning (13410): Pin "D_addr[5]" is stuck at GND
-    Warning (13410): Pin "D_addr[6]" is stuck at GND
-    Warning (13410): Pin "D_addr[7]" is stuck at GND
     Warning (13410): Pin "RF_W_data[0]" is stuck at GND
     Warning (13410): Pin "RF_W_data[1]" is stuck at GND
     Warning (13410): Pin "RF_W_data[2]" is stuck at GND
@@ -340,26 +351,13 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "RF_W_data[7]" is stuck at GND
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 12 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "IR_in[0]"
-    Warning (15610): No output dependent on input pin "IR_in[1]"
-    Warning (15610): No output dependent on input pin "IR_in[2]"
-    Warning (15610): No output dependent on input pin "IR_in[3]"
-    Warning (15610): No output dependent on input pin "IR_in[4]"
-    Warning (15610): No output dependent on input pin "IR_in[5]"
-    Warning (15610): No output dependent on input pin "IR_in[6]"
-    Warning (15610): No output dependent on input pin "IR_in[7]"
-    Warning (15610): No output dependent on input pin "IR_in[8]"
-    Warning (15610): No output dependent on input pin "IR_in[9]"
-    Warning (15610): No output dependent on input pin "IR_in[10]"
-    Warning (15610): No output dependent on input pin "IR_in[11]"
-Info (21057): Implemented 114 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 127 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 20 input pins
     Info (21059): Implemented 49 output pins
-    Info (21061): Implemented 45 logic cells
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 72 warnings
-    Info: Peak virtual memory: 524 megabytes
-    Info: Processing ended: Fri Jun 02 06:22:36 2017
+    Info (21061): Implemented 58 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 41 warnings
+    Info: Peak virtual memory: 523 megabytes
+    Info: Processing ended: Fri Jun 02 06:40:20 2017
     Info: Elapsed time: 00:00:17
     Info: Total CPU time (on all processors): 00:00:02
 

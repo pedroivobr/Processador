@@ -8,7 +8,7 @@ entity Controller is
 		clock, key0, key3, RF_rp_zero : in std_logic;
 		IR_in : in std_logic_vector(15 downto 0);
 		
-		selMUX_data, RF_W_wr, RF_rf_rd, RF_rq_rd,
+		selMUX_data, RF_W_wr, RF_rp_rd, RF_rq_rd,
 				D_rd, D_wr, load_IR, MI_rd, inc_PC,
 				clr_PC, load_PC: out std_logic;
 				
@@ -190,10 +190,12 @@ begin
 		end if;
 	end process;
 	
+	--Fetch
 	clr_PC <= '1' when y = Init else '0';
 	load_PC <= '1' when y = Fetch else '0';
 	load_IR <= '1' when y = Fetch else '0'; 
 	
+	--Decode
 	disp1_out <= "1110" when y = Decode else
 					 "0000" when y = Load else
 					 "0001" when y = Store else
@@ -210,5 +212,32 @@ begin
 					 "1100" when y = Jump else 
 					 "1101" when y = LoadFromRegister;
 	
+
+	D_addr <= IR_in(7 downto 0) when y = Load or y = Store;
+	
+	D_rd <= '1' when y = Load;
+	
+	D_wr <= '1' when y = Store;
+	
+	RF_sel <= "01" when y = Load else
+				 "00" when y = Add;
+	
+	RF_W_addr <= IR_in(11 downto 8) when y = Load or y = Add
+					 or y = LoadConstant;
+	
+	RF_W_wr <= '1' when y = Load or y = Add;
+	
+	RF_rp_rd <= '1' when y = Load or y = Store or y = Add;
+	
+	RF_rq_rd <= '1' when y = Add;
+	
+	RF_rp_addr <= IR_in(11 downto 8) when y = Store else
+					  IR_in(7 downto 4) when y = Add;
+					  
+	RF_rq_addr <= IR_in(3 downto 0) when y = Add;
+	
+	selMUX_data <= '0' when y = Store;
+	
+	seletor <= "0010" when y = Add;
 	
 end mecanismo;
