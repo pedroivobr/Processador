@@ -40,9 +40,9 @@ architecture mecanismo of Controller is
 	constant LoadFromRegister : std_logic_vector(4 downto 0) := "01101";
 	constant Decode : std_logic_vector(4 downto 0) := "01110";
 	constant Fetch : std_logic_vector(4 downto 0) := "01111";
-	constant Inicio : std_logic_vector(4 downto 0) := "10000";
+	constant Init : std_logic_vector(4 downto 0) := "10000";
 	
-	signal y : std_logic_vector(4 downto 0) := Inicio;
+	signal y : std_logic_vector(4 downto 0) := Init;
 	signal op : std_logic_vector(3 downto 0);
 	
 begin
@@ -50,11 +50,11 @@ begin
 	begin
 		if(clock = '1' and clock'event) then
 			case y is
-				when Inicio =>
+				when Init =>
 					if(key3 = '1') then
 						y <= Fetch;
 					else 
-						y <= Inicio;
+						y <= Init;
 					end if;
 					
 				when Fetch =>
@@ -93,6 +93,116 @@ begin
 								
 							when "1000" =>
 								y <= _Xor;
+								
+							when "1001" =>
+								y <= _Xnor;
+								
+							when "1010" =>
+								y <= Shfl;
+								
+							when "1011" =>
+								y <= Shfr;
+								
+							when "1100" =>
+								y <= Jump;
+								
+							when "1101" =>
+								y <= LoadFromRegister;
+							
+							when others =>
+						end case;
+					end if;
+				
+				when Load =>
+					if(key0 = '1') then
+						y <= Fetch;
+				
+				when Store =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+				
+				when Add =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+					
+				when LoadConstant =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+					
+				when Subtract =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+					
+				when _And =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+					
+				when _Or =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+					
+				when _Xor =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+					
+				when _Xnor =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+					
+				when Shfl =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+					
+				when Shfr =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+					
+				when JumpIfZero =>
+					if(key0 = '1' and RF_rp_zero = '1') then
+						y <= Jump;
+					elsif(key0 = '1' and RF_rp_zero = '0') then
+						y <= Fetch;
+					end if;
+				
+				when Jump =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+					
+				when LoadFromRegister =>
+					if(key0 = '1') then
+						y <= Fetch;
+					end if;
+			end if;
 	end process;
-
+	
+	clr_PC <= '1' when y = Init else '0';
+	load_PC <= '1' when y = Fetch else '0';
+	load_IR <= '1' when y = Fetch else '0; 
+	
+	disp1_out <= "1110" when y = Decode else
+					 "0000" when y = Load else
+					 "0001" when y = Store else
+					 "0010" when y = Add else
+					 "0011" when y = LoadConstant else
+					 "0100" when y = Subtract else
+					 "0101" when y = JumpIfZero else
+					 "0110" when y = _And else 
+					 "0111" when y = _Or else
+					 "1000" when y = _Xor else 
+					 "1001" when y = _Xnor else 
+					 "1010" when y = Shfl else 
+					 "1011" when y = Shfr else 
+					 "1100" when y = Jump else 
+					 "1101" when y = LoadFromRegister;
 end mecanismo;
