@@ -9,7 +9,7 @@ entity Controller is
 		IR_in : in std_logic_vector(15 downto 0);
 		
 		selMUX_data, RF_W_wr, RF_rf_rd, RF_rq_rd,
-				D_rd, D_wr, load_IR, MI_rd, inc_PC
+				D_rd, D_wr, load_IR, MI_rd, inc_PC,
 				clr_PC, load_PC: out std_logic;
 				
 		RF_sel : out std_logic_vector(1 downto 0);
@@ -30,10 +30,10 @@ architecture mecanismo of Controller is
 	constant LoadConstant : std_logic_vector(4 downto 0) := "00011";
 	constant Subtract : std_logic_vector(4 downto 0) := "00100";
 	constant JumpIfZero : std_logic_vector(4 downto 0) := "00101";
-	constant _And : std_logic_vector(4 downto 0) := "00110";
-	constant _Or : std_logic_vector(4 downto 0) := "00111";
-	constant _Xor : std_logic_vector(4 downto 0) := "01000";
-	constant _Xnor : std_logic_vector(4 downto 0) := "01001";
+	constant stateAnd : std_logic_vector(4 downto 0) := "00110";
+	constant stateOr : std_logic_vector(4 downto 0) := "00111";
+	constant stateXor : std_logic_vector(4 downto 0) := "01000";
+	constant stateXnor : std_logic_vector(4 downto 0) := "01001";
 	constant Shfl : std_logic_vector(4 downto 0) := "01010";
 	constant Shfr : std_logic_vector(4 downto 0) := "01011";
 	constant Jump : std_logic_vector(4 downto 0) := "01100";
@@ -63,7 +63,7 @@ begin
 					end if;
 				
 				when Decode =>
-					op <= unsigned (IR_in(15 downto 12);
+					op <= (IR_in(15 downto 12));
 					
 					if(key0 = '1') then
 						case op is
@@ -86,16 +86,16 @@ begin
 								y <= JumpIfZero;
 								
 							when "0110" =>
-								y <= _And;
+								y <= stateAnd;
 								
 							when "0111" =>
-								y <= _Or;
+								y <= stateOr;
 								
 							when "1000" =>
-								y <= _Xor;
+								y <= stateXor;
 								
 							when "1001" =>
-								y <= _Xnor;
+								y <= stateXnor;
 								
 							when "1010" =>
 								y <= Shfl;
@@ -116,7 +116,8 @@ begin
 				when Load =>
 					if(key0 = '1') then
 						y <= Fetch;
-				
+					end if;
+					
 				when Store =>
 					if(key0 = '1') then
 						y <= Fetch;
@@ -137,22 +138,22 @@ begin
 						y <= Fetch;
 					end if;
 					
-				when _And =>
+				when stateAnd =>
 					if(key0 = '1') then
 						y <= Fetch;
 					end if;
 					
-				when _Or =>
+				when stateOr =>
 					if(key0 = '1') then
 						y <= Fetch;
 					end if;
 					
-				when _Xor =>
+				when stateXor =>
 					if(key0 = '1') then
 						y <= Fetch;
 					end if;
 					
-				when _Xnor =>
+				when stateXnor =>
 					if(key0 = '1') then
 						y <= Fetch;
 					end if;
@@ -183,12 +184,15 @@ begin
 					if(key0 = '1') then
 						y <= Fetch;
 					end if;
-			end if;
+				
+				when others =>
+			end case;
+		end if;
 	end process;
 	
 	clr_PC <= '1' when y = Init else '0';
 	load_PC <= '1' when y = Fetch else '0';
-	load_IR <= '1' when y = Fetch else '0; 
+	load_IR <= '1' when y = Fetch else '0'; 
 	
 	disp1_out <= "1110" when y = Decode else
 					 "0000" when y = Load else
@@ -197,12 +201,14 @@ begin
 					 "0011" when y = LoadConstant else
 					 "0100" when y = Subtract else
 					 "0101" when y = JumpIfZero else
-					 "0110" when y = _And else 
-					 "0111" when y = _Or else
-					 "1000" when y = _Xor else 
-					 "1001" when y = _Xnor else 
+					 "0110" when y = stateAnd else 
+					 "0111" when y = stateOr else
+					 "1000" when y = stateXor else 
+					 "1001" when y = stateXnor else 
 					 "1010" when y = Shfl else 
 					 "1011" when y = Shfr else 
 					 "1100" when y = Jump else 
 					 "1101" when y = LoadFromRegister;
+	
+	
 end mecanismo;
