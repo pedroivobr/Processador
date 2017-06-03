@@ -1,0 +1,106 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity MS is
+	port (
+		clk,key0,key3,RF_rp_zero: in std_logic;
+		IR: in std_logic_vector(15 downto 0);
+		ld_PC,clr_PC,inc_PC,I_rd,ld_IR,D_rw,SelMUX_mem,RF_W_wr,RF_rp_rd,RF_rq_rd: out std_logic;
+		RF_sel: out std_logic_vector(1 downto 0);
+		RF_W_addr, RF_rp_addr, RF_rq_addr, selMUX_ula: out std_logic_vector(3 downto 0);
+		disp1: out (4 downto 0);
+		D_addr,RF_W_data : out std_logic_vector(7 downto 0)		
+	);
+end MS ;
+architecture arq of MS is
+	CONSTANT init : STD_LOGIC_VECTOR(4 DOWNTO 0) := "00000";
+	CONSTANT fetch : STD_LOGIC_VECTOR(4 DOWNTO 0) := "00001";
+	CONSTANT decode : STD_LOGIC_VECTOR(4 DOWNTO 0) := "00010";
+	CONSTANT load : STD_LOGIC_VECTOR(4 DOWNTO 0) := "00011";
+	CONSTANT store: STD_LOGIC_VECTOR(4 DOWNTO 0) := "00100";
+	CONSTANT add : STD_LOGIC_VECTOR(4 DOWNTO 0) := "00101";
+	CONSTANT load_constant: STD_LOGIC_VECTOR(4 DOWNTO 0) := "00110";
+	CONSTANT subtract: STD_LOGIC_VECTOR(4 DOWNTO 0) := "00111";
+	CONSTANT jump_if_zero: STD_LOGIC_VECTOR(4 DOWNTO 0) := "01000";
+	CONSTANT _and : STD_LOGIC_VECTOR(4 DOWNTO 0) := "01001";
+	CONSTANT _or: STD_LOGIC_VECTOR(4 DOWNTO 0) := "01010";
+	CONSTANT _xor: STD_LOGIC_VECTOR(4 DOWNTO 0) := "01011";
+	CONSTANT _xnor: STD_LOGIC_VECTOR(4 DOWNTO 0) := "01100";
+	CONSTANT _shift_left: STD_LOGIC_VECTOR(4 DOWNTO 0) := "01101";
+	CONSTANT _shift_right: STD_LOGIC_VECTOR(4 DOWNTO 0) := "01110";
+	CONSTANT jump: STD_LOGIC_VECTOR(4 DOWNTO 0) := "01111";
+	CONSTANT load_from_register: STD_LOGIC_VECTOR(4 DOWNTO 0) := "10000";
+	
+	SIGNAL y : STD_LOGIC_VECTOR(4 DOWNTO 0) := init;
+
+begin
+process(clk) begin
+		IF (clk'EVENT AND clk = '1') THEN
+			case y is
+				when init =>
+					if(key3 = '0') then
+						y <= fetch;
+					end if;
+				when fetch =>
+					if(key0 = '0') then
+						y <= decode;
+					end if;
+				when decode =>
+					if(key0 = '0' AND IR(15 downto 12)="0000") then
+						y <= load;
+					elsif(key0 ='0' AND IR(15 downto 12)="0001") then
+						y <= store;
+					elsif(key0 ='0' AND IR(15 downto 12)="0010") then
+						y <= add;
+					elsif(key0 ='0' AND IR(15 downto 12)="0011") then
+						y <= load_constant;
+					elsif(key0 ='0' AND IR(15 downto 12)="0100") then
+						y <= subtract;
+					elsif(key0 ='0' AND IR(15 downto 12)="0101") then
+						y <= jump_if_zero;
+					elsif(key0 ='0' AND IR(15 downto 12)="0110") then
+						y <= _and;
+					elsif(key0 ='0' AND IR(15 downto 12)="0111") then
+						y <= _or;
+					elsif(key0 ='0' AND IR(15 downto 12)="1000") then
+						y <= _xor;
+					elsif(key0 ='0' AND IR(15 downto 12)="1001") then
+						y <= _xnor;
+					elsif(key0 ='0' AND IR(15 downto 12)="1010") then
+						y <= _shift_left;
+					elsif(key0 ='0' AND IR(15 downto 12)="1011") then
+						y <= _shift_right;
+					elsif(key0 ='0' AND IR(15 downto 12)="1100") then
+						y <= jump;
+					elsif(key0 ='0' AND IR(15 downto 12)="1101") then
+						y <= load_from_register;
+					end if;
+				when ligarLed =>
+					if(tMenor7 = '0') then
+						y <= lento;
+					elsif(bt_jogador = '0' AND tMenor7 = '1') then
+						y <= mostrarTempo;
+					end if;
+				when lento =>
+					if bt_start='0' then
+						y<=cont;
+					end if;
+				when mostrarTempo =>
+					if(bt_start = '0') then
+						y <= zerar;
+					end if;
+				when zerar =>
+					y <= cont;
+				when others =>
+			end case;
+		end if;
+end process;
+		led_jogo <= '1' when y = ligarLed else '0';
+		led_rapido <= '1' when y = rapido else '0';
+		clr_tempo <= '0' when y= rapido or y = lento or y = zerar or y = i else '1';
+		ld_tempo <= '1' when y = ligarLed or y = cont else '0';
+		sel <= "01" when y = lento or y = rapido 		 else
+				 "10" when y = zerar or y = ligarLed or y = cont else 
+				 "00" when y = mostrarTempo;
+		--sel <= "00";
+end arq;
