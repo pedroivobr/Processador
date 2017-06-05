@@ -192,7 +192,7 @@ begin
 	
 	--Fetch
 	clr_PC <= '1' when y = Init else '0';
-	load_PC <= '1' when y = Fetch else '0';
+	inc_PC <= '1' when y = Fetch else '0';
 	load_IR <= '1' when y = Fetch else '0'; 
 	
 	--Decode
@@ -215,29 +215,70 @@ begin
 
 	D_addr <= IR_in(7 downto 0) when y = Load or y = Store;
 	
-	D_rd <= '1' when y = Load;
+	D_rd <= '1' when y = Load or y = LoadFromRegister;
 	
-	D_wr <= '1' when y = Store;
+	D_wr <= '1' when y = Store or y = LoadFromRegister;
 	
 	RF_sel <= "01" when y = Load else
-				 "00" when y = Add;
+				 "00" when y = Add or y = Subtract 
+						or y = stateAnd or y = stateOr
+						or y = stateXor or y = stateXnor 
+						or y = Shfl or y = Shfr else
+				 "10" when y = LoadConstant;
 	
 	RF_W_addr <= IR_in(11 downto 8) when y = Load or y = Add
-					 or y = LoadConstant;
+					 or y = LoadConstant or y = Subtract
+					 or y = JumpIfZero or y = stateAnd 
+					 or y = stateOr or y = stateXor
+					 or y = stateXnor
+					 or y = Shfl or y = Shfr
+					 or y = LoadFromRegister;
 	
-	RF_W_wr <= '1' when y = Load or y = Add;
+	RF_W_wr <= '1' when y = Load or y = Add or
+							  y = LoadConstant or y = Subtract
+							  or y = stateAnd or y = stateOr
+							  or y = stateXor or y = stateXnor
+							  or y = Shfl or y = Shfr
+							  or y = LoadFromRegister;
+								
+	RF_W_data <= IR_in(7 downto 0) when y = LoadConstant;
 	
-	RF_rp_rd <= '1' when y = Load or y = Store or y = Add;
+	RF_rp_rd <= '1' when y = Load or y = Store or y = Add
+								or y = Subtract or y = JumpIfZero
+								or y = stateAnd or y = stateOr
+								or y = stateXor or y = stateXnor
+								or y = Shfl or y = Shfr
+								or y = LoadFromRegister;
 	
-	RF_rq_rd <= '1' when y = Add;
+	RF_rq_rd <= '1' when y = Add or y = Subtract or y = stateAnd
+										  or y = stateOr or y = stateXor
+										  or y = stateXnor;
 	
 	RF_rp_addr <= IR_in(11 downto 8) when y = Store else
-					  IR_in(7 downto 4) when y = Add;
+					  IR_in(7 downto 4) when y = Add or y = Subtract
+							or y = stateAnd or y = stateOr
+							or y = stateXor or y = stateXnor
+							or y = Shfl or y = Shfr
+							or y = LoadFromRegister;
 					  
-	RF_rq_addr <= IR_in(3 downto 0) when y = Add;
+	RF_rq_addr <= IR_in(3 downto 0) when y = Add or y = Subtract
+							or y = stateAnd or y = stateOr
+							or y = stateXor or y = stateXnor;
 	
-	selMUX_data <= '0' when y = Store;
+	selMUX_data <= '0' when y = Load or y = Store else
+						'1' when y = LoadFromRegister;
 	
-	seletor <= "0010" when y = Add;
+	
+	seletor <= "0010" when y = Add else
+				  "0100" when y = Subtract else
+				  "0110" when y = stateAnd else
+				  "0111" when y = stateOr else 
+				  "1000" when y = stateXor else
+				  "1001" when y = stateXnor else
+				  "1010" when y = Shfl else
+				  "1011" when y = Shfr else
+				  "1101" when y = LoadFromRegister;
+	
+	load_PC <= '1' when y = Jump;
 	
 end mecanismo;
